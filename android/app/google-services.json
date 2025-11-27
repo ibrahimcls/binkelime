@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1092620325512",
+    "project_id": "binkelime-48ecb",
+    "storage_bucket": "binkelime-48ecb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1092620325512:android:fb361c734ecdd04741053d",
+        "android_client_info": {
+          "package_name": "com.example.binkelime"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEFOlOw3HLA_K_tfIx8oXP9G56dSOOGsk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

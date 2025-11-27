@@ -1,0 +1,44 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Widget.Android.AppWidget.Container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="12dp"
+    android:background="@drawable/widget_background">
+
+    <TextView
+        android:id="@+id/text_instead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="test yerine kullan"
+        android:textColor="#9DE1FF"
+        android:textSize="14sp"
+        android:textStyle="normal"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/text_use"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:textColor="#F9F9F9"
+        android:text="Testiye"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/text_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="lorem ipsum lorem ipsumlorem ipsum"
+        android:textSize="12sp"
+        android:textStyle="normal"
+        android:textColor="#D7E4FF"
+        android:gravity="center"
+        android:ellipsize="end" />
+</LinearLayout>
