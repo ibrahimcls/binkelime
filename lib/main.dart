@@ -25,11 +25,14 @@ class MainApp extends StatefulWidget {
   State<MainApp> createState() => _MainAppState();
 }
 
-class _MainAppState extends State<MainApp> {
+class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
   Word? word;
   static final bool _supportsHomeWidget =
       !kIsWeb && (Platform.isAndroid || Platform.isIOS);
   bool _isStarFilled = false;
+  AnimationController? _animationController;
+  Animation<double>? _animation;
+  double starIconSize = 48;
 
   @override
   void initState() {
@@ -38,6 +41,22 @@ class _MainAppState extends State<MainApp> {
       HomeWidget.setAppGroupId("com.example.binkelime");
     }
     getDocument();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+    _animation = Tween<double>(begin: 1, end: 1.2).animate(
+      CurvedAnimation(
+        parent: _animationController!,
+        curve: Curves.elasticOut,
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController?.dispose();
+    super.dispose();
   }
 
   Future<void> getDocument() async {
@@ -77,12 +96,27 @@ class _MainAppState extends State<MainApp> {
                 onTap: () {
                   setState(() {
                     _isStarFilled = !_isStarFilled;
+                    _animationController?.forward(from: 0);
                   });
                 },
-                child: Icon(
-                  _isStarFilled ? Icons.star : Icons.star_border,
-                  color: _isStarFilled ? Colors.red : Colors.black54,
-                  size: 48,
+                child: SizedBox(
+                  width: starIconSize,
+                  height: starIconSize,
+                  child: AnimatedBuilder(
+                    animation: _animationController!,
+                    builder: (context, child) {
+                      final scale = _animation?.value ?? 1;
+                      return Transform.scale(
+                        scale: scale,
+                        alignment: Alignment.center,
+                        child: Icon(
+                          _isStarFilled ? Icons.star : Icons.star_border,
+                          color: _isStarFilled ? Colors.red : Colors.black54,
+                          size: starIconSize,
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
