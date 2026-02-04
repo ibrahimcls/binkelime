@@ -80,7 +80,7 @@ private fun createWordRemoteViews(context: Context): RemoteViews {
             }
         } else {
             setTextViewText(R.id.text_instead, "Veri yok")
-            setTextViewText(R.id.text_use, "")
+            setTextViewText(R.id.text_use, "Uygulamayı açarak veriyi güncelle")
             setTextViewText(R.id.text_description, "")
         }
     }
