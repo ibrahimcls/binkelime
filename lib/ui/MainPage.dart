@@ -61,7 +61,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
           await HomeWidget.saveWidgetData("text_from_flutter", word!.getJson());
           await HomeWidget.updateWidget(androidName: "HomeWidget");
         }
-
+        _refreshFavorites();
         setState(() {});
       } else {
         print("Belirtilen kriterde document yok!");
@@ -79,6 +79,12 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
     await _favService.deleteFavorite(insteadText);
   }
 
+  void _refreshFavorites() {
+    setState(() {
+      _isFavorited = _favService.isFavorite(word!.instead);
+    });
+  }
+
   @override
   void dispose() {
     _animationController?.dispose();
@@ -88,69 +94,76 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
   void _showListBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
+      isDismissible: true,
       isScrollControlled: true,
+      enableDrag: true,
       backgroundColor: Colors.transparent,
       builder: (BuildContext context) {
-        return BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-          child: Stack(
-            children: [
-              Positioned(
-                right: 24,
-                bottom: 80,
-                child: Material(
-                  color: Colors.transparent,
-                  elevation: 20,
-                  shadowColor: Colors.black.withOpacity(0.3),
-                  child: _buildGlassBox(
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        _buildOptionItem(
-                          icon: Icons.favorite,
-                          label: "Favori Kelimeler",
-                          color: Colors.white,
-                          onTap: () => {
-                            Navigator.pop(context),
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const FavoritesPage()),
-                            )
-                          },
-                        ),
-                        Divider(
-                            height: 1, color: Colors.white.withOpacity(0.2)),
-                        _buildOptionItem(
-                          icon: Icons.book,
-                          label: "Bütün Kelimeler",
-                          color: Colors.white,
-                          onTap: () => {
-                            Navigator.pop(context),
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const AllWordPage()),
-                            )
-                          },
-                        ),
-                        Divider(
-                            height: 1, color: Colors.white.withOpacity(0.2)),
-                        _buildOptionItem(
-                          icon: Icons.share,
-                          label: "Paylaş",
-                          color: Colors.white,
-                          onTap: () {
-                            Navigator.pop(context);
-                            ShareService.shareWord(word!);
-                          },
-                        ),
-                      ],
+        return GestureDetector(
+          onTap: () => Navigator.pop(context),
+          behavior: HitTestBehavior.opaque,
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: Stack(
+              children: [
+                Positioned(
+                  right: 24,
+                  bottom: 80,
+                  child: Material(
+                    color: Colors.transparent,
+                    elevation: 20,
+                    shadowColor: Colors.black.withOpacity(0.3),
+                    child: _buildGlassBox(
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          _buildOptionItem(
+                            icon: Icons.favorite,
+                            label: "Favori Kelimeler",
+                            color: Colors.white,
+                            onTap: () => {
+                              Navigator.pop(context),
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const FavoritesPage()),
+                              ).then((value) => _refreshFavorites()),
+                            },
+                          ),
+                          Divider(
+                              height: 1, color: Colors.white.withOpacity(0.2)),
+                          _buildOptionItem(
+                            icon: Icons.book,
+                            label: "Bütün Kelimeler",
+                            color: Colors.white,
+                            onTap: () => {
+                              Navigator.pop(context),
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const AllWordPage()),
+                              )
+                            },
+                          ),
+                          Divider(
+                              height: 1, color: Colors.white.withOpacity(0.2)),
+                          _buildOptionItem(
+                            icon: Icons.share,
+                            label: "Paylaş",
+                            color: Colors.white,
+                            onTap: () {
+                              Navigator.pop(context);
+                              ShareService.shareWord(word!);
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         );
       },

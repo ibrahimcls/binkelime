@@ -37,4 +37,9 @@ class FavoriteLocalDBService {
       return Word.fromFirestore(wordMap);
     }).toList();
   }
+
+  bool isFavorite(String insteadKey) {
+    final box = Hive.box(_boxName);
+    return box.containsKey(insteadKey);
+  }
 }

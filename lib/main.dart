@@ -9,6 +9,6 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await FavoriteLocalDBService.init(); // DB başlatıldı
+  await FavoriteLocalDBService.init();
   runApp(const MainApp() as Widget);
 }
