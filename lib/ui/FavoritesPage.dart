@@ -1,4 +1,4 @@
-import 'package:binkelime/favorite_local_db_service.dart';
+import 'package:binkelime/common/service/favorite_local_db_service.dart';
 import 'package:binkelime/model/word.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +19,6 @@ class _FavoritesPageState extends State<FavoritesPage> {
     _refreshFavorites();
   }
 
-  // Listeyi güncelleyen fonksiyon
   void _refreshFavorites() {
     setState(() {
       _favorites = _favService.getAllFavorites();
@@ -29,7 +28,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F7FA), // Hafif gri-mavi arka plan
+      backgroundColor: const Color(0xFFF5F7FA),
       appBar: AppBar(
         title: const Text(
           "Favori Kelimelerim",
@@ -134,7 +133,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
             IconButton(
               onPressed: () async {
                 await _favService.deleteFavorite(word.instead);
-                _refreshFavorites(); // Listeyi anında güncelle
+                _refreshFavorites();
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
                       content: Text("Favorilerden kaldırıldı"),

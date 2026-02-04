@@ -1,6 +1,6 @@
 import '../model/word.dart';
 
-List<Word> wordList = [
+List<Word> allWordList = [
   Word(
     instead: "TÜRDEŞ",
     use: "HEMCİNS",

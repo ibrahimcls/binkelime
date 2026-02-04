@@ -1,6 +1,6 @@
-import 'package:binkelime/WordWidget.dart';
+import 'package:binkelime/ui/WordWidget.dart';
 import 'package:flutter/material.dart';
-import 'model/word.dart';
+import '../model/word.dart';
 
 class SmoothInfiniteGradient extends StatefulWidget {
   final Word? word;
@@ -81,10 +81,6 @@ class _SmoothInfiniteGradientState extends State<SmoothInfiniteGradient>
     });
   }
 
-  Widget wordWidget(Word word) {
-    return WordWidget(word: word, txtColor: endTextColor);
-  }
-
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -108,7 +104,8 @@ class _SmoothInfiniteGradientState extends State<SmoothInfiniteGradient>
             ),
           ),
           child: widget.word != null
-              ? Center(child: wordWidget(widget.word!))
+              ? Center(
+                  child: WordWidget(word: widget.word!, txtColor: endTextColor))
               : Text(
                   "Yükleniyor...",
                   style: TextStyle(

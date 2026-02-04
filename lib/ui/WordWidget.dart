@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'model/word.dart';
+import '../model/word.dart';
 
 class WordWidget extends StatefulWidget {
   final Word? word;
@@ -60,7 +60,7 @@ class _WordWidgetState extends State<WordWidget> {
             padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
             child: Text(
               widget.word!.description,
-              textAlign: TextAlign.center ,
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: 'Lato',
                 fontSize: 16,
