@@ -4,7 +4,7 @@ import 'model/word.dart';
 
 class SmoothInfiniteGradient extends StatefulWidget {
   final Word? word;
-  
+
   const SmoothInfiniteGradient({super.key, this.word});
 
   @override
@@ -28,7 +28,7 @@ class _SmoothInfiniteGradientState extends State<SmoothInfiniteGradient>
   final List<Color> textColors = [
     const Color(0xFF3B0000),
     const Color(0xFF4B2C00),
-    const Color(0xFF333300),  
+    const Color(0xFF333300),
     const Color(0xFF003300),
     const Color(0xFF00334B),
     const Color(0xFF1A0033),
@@ -76,7 +76,9 @@ class _SmoothInfiniteGradientState extends State<SmoothInfiniteGradient>
       }
     });
 
-    _controller.forward();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _controller.forward();
+    });
   }
 
   Widget wordWidget(Word word) {

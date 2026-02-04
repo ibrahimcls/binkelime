@@ -11,7 +11,6 @@ class Word {
     required this.description,
   });
 
-  // Firestore'dan veri almak için factory constructor
   factory Word.fromFirestore(Map<String, dynamic> data) {
     return Word(
       instead: data['instead'] ?? '',
@@ -20,7 +19,6 @@ class Word {
     );
   }
 
-  // Firestore'a veri göndermek için toMap metodu
   Map<String, dynamic> toMap() {
     return {
       'instead': instead,
@@ -32,6 +30,4 @@ class Word {
   String getJson() {
     return jsonEncode(toMap());
   }
-
 }
-
