@@ -27,7 +27,12 @@ Future<void> main() async {
   );
 
   await FavoriteLocalDBService.init();
-  runApp(const MainApp());
+  runApp(
+    const MaterialApp(
+      home: MainApp(),
+      debugShowCheckedModeBanner: false,
+    ),
+  );
 }
 
 @pragma('vm:entry-point')

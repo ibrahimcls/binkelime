@@ -211,82 +211,65 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      localizationsDelegates: const [
-        DefaultMaterialLocalizations.delegate,
-        DefaultWidgetsLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale('en', ''),
-        Locale('tr', ''),
-      ],
-      home: Builder(
-        builder: (context) {
-          return Scaffold(
-            body: Stack(
+    return Scaffold(
+      body: Stack(
+        children: [
+          Center(
+            child: SmoothInfiniteGradient(word: word),
+          ),
+          Positioned(
+            right: 24,
+            bottom: 24,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Center(
-                  child: SmoothInfiniteGradient(word: word),
-                ),
-                Positioned(
-                  right: 24,
-                  bottom: 24,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _isFavorited = !_isFavorited;
-                            _animationController?.forward(from: 0);
-                            if (_isFavorited) {
-                              onFavoritePressed(word!);
-                            } else {
-                              onRemovePressed(word!.instead);
-                            }
-                          });
-                        },
-                        child: SizedBox(
-                          width: starIconSize,
-                          height: starIconSize,
-                          child: AnimatedBuilder(
-                            animation: _animationController!,
-                            builder: (context, child) {
-                              final scale = _animation?.value ?? 1;
-                              return Transform.scale(
-                                scale: scale,
-                                alignment: Alignment.center,
-                                child: Icon(
-                                  _isFavorited ? Icons.star : Icons.star_border,
-                                  color: _isFavorited
-                                      ? Colors.red
-                                      : Colors.black54,
-                                  size: starIconSize,
-                                ),
-                              );
-                            },
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _isFavorited = !_isFavorited;
+                      _animationController?.forward(from: 0);
+                      if (_isFavorited) {
+                        onFavoritePressed(word!);
+                      } else {
+                        onRemovePressed(word!.instead);
+                      }
+                    });
+                  },
+                  child: SizedBox(
+                    width: starIconSize,
+                    height: starIconSize,
+                    child: AnimatedBuilder(
+                      animation: _animationController!,
+                      builder: (context, child) {
+                        final scale = _animation?.value ?? 1;
+                        return Transform.scale(
+                          scale: scale,
+                          alignment: Alignment.center,
+                          child: Icon(
+                            _isFavorited ? Icons.star : Icons.star_border,
+                            color: _isFavorited ? Colors.red : Colors.black54,
+                            size: starIconSize,
                           ),
-                        ),
-                      ),
-                      const SizedBox(width: 16),
-                      GestureDetector(
-                        onTap: () {
-                          _showListBottomSheet(context);
-                        },
-                        child: const Icon(
-                          Icons.menu,
-                          color: Colors.black54,
-                          size: 48,
-                        ),
-                      ),
-                    ],
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 16),
+                GestureDetector(
+                  onTap: () {
+                    _showListBottomSheet(context);
+                  },
+                  child: const Icon(
+                    Icons.menu,
+                    color: Colors.black54,
+                    size: 48,
                   ),
                 ),
               ],
             ),
-          );
-        },
+          ),
+        ],
       ),
     );
   }
