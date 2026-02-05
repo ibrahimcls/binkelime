@@ -1,4 +1,4 @@
-package com.example.binkelime
+package com.ic.binkelime
 
 data class Word(
     val use: String,

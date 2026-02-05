@@ -1,4 +1,4 @@
-package com.example.binkelime
+package com.ic.binkelime
 
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider

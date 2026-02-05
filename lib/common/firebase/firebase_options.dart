@@ -67,7 +67,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1092620325512',
     projectId: 'binkelime-48ecb',
     storageBucket: 'binkelime-48ecb.firebasestorage.app',
-    iosBundleId: 'com.example.binkelime',
+    iosBundleId: 'com.ic.binkelime',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -76,6 +76,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1092620325512',
     projectId: 'binkelime-48ecb',
     storageBucket: 'binkelime-48ecb.firebasestorage.app',
-    iosBundleId: 'com.example.binkelime',
+    iosBundleId: 'com.ic.binkelime',
   );
 }

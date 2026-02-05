@@ -34,7 +34,7 @@ class _MainAppState extends State<MainApp> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     if (_supportsHomeWidget) {
-      HomeWidget.setAppGroupId("com.example.binkelime");
+      HomeWidget.setAppGroupId("com.ic.binkelime");
     }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _initAsync();

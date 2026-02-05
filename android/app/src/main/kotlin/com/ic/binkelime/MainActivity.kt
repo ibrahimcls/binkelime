@@ -1,4 +1,4 @@
-package com.example.binkelime
+package com.ic.binkelime
 
 import io.flutter.embedding.android.FlutterActivity
 
