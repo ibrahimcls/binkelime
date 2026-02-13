@@ -1,5 +1,6 @@
 import 'package:binkelime/ui/WordWidget.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../model/word.dart';
 
 class SmoothInfiniteGradient extends StatefulWidget {
@@ -108,7 +109,7 @@ class _SmoothInfiniteGradientState extends State<SmoothInfiniteGradient>
                   child: WordWidget(word: widget.word!, txtColor: endTextColor))
               : Text(
                   "Yükleniyor...",
-                  style: TextStyle(
+                  style: GoogleFonts.roboto(
                     fontSize: 42,
                     fontWeight: FontWeight.bold,
                     color: txtColor,

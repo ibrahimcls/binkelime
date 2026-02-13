@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../model/word.dart';
 
 class WordWidget extends StatefulWidget {
@@ -29,8 +30,7 @@ class _WordWidgetState extends State<WordWidget> {
         children: [
           Text(
             "${widget.word!.instead} yerine kullan",
-            style: TextStyle(
-              fontFamily: 'Lato',
+            style: GoogleFonts.roboto(
               fontSize: 18,
               fontWeight: FontWeight.w600,
               color: widget.txtColor,
@@ -43,8 +43,7 @@ class _WordWidgetState extends State<WordWidget> {
                 child: FittedBox(
                   child: Text(
                     widget.word!.use,
-                    style: TextStyle(
-                      fontFamily: 'Lato',
+                    style: GoogleFonts.roboto(
                       fontSize: 200,
                       fontWeight: FontWeight.w900,
                       color: widget.txtColor,
@@ -61,8 +60,7 @@ class _WordWidgetState extends State<WordWidget> {
             child: Text(
               widget.word!.description,
               textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'Lato',
+              style: GoogleFonts.roboto(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
                 color: widget.txtColor,

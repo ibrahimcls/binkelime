@@ -74,4 +74,9 @@ configurations.all {
 
 dependencies {
     implementation "androidx.multidex:multidex:2.0.1"
+    
+    
+    // Versiyonu buraya açıkça (25.0.0) ekliyoruz ki Gradle "bulamadım" diyemesin
+    implementation 'com.google.firebase:firebase-firestore-ktx:25.0.0'
+    implementation 'com.google.firebase:firebase-common-ktx:21.0.0'
 }

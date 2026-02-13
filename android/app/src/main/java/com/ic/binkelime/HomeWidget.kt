@@ -3,14 +3,13 @@ package com.ic.binkelime
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
+import android.content.Intent
+import android.app.PendingIntent
 import android.os.Bundle
 import android.widget.RemoteViews
 import es.antonborri.home_widget.HomeWidgetPlugin
 import org.json.JSONObject
 
-/**
- * Implementation of App Widget functionality.
- */
 class HomeWidget : AppWidgetProvider() {
     override fun onUpdate(
         context: Context,
@@ -25,11 +24,11 @@ class HomeWidget : AppWidgetProvider() {
     }
 
     override fun onEnabled(context: Context) {
-        // Enter relevant functionality for when the first widget is created
+        WidgetUpdateScheduler.schedulePeriodicUpdates(context)
     }
 
     override fun onDisabled(context: Context) {
-        // Enter relevant functionality for when the last widget is disabled
+        WidgetUpdateScheduler.cancelUpdates(context)
     }
 
     override fun onAppWidgetOptionsChanged(
@@ -58,6 +57,19 @@ internal fun updateAppWidget(
 
 private fun createWordRemoteViews(context: Context): RemoteViews {
     val widgetData = HomeWidgetPlugin.getData(context)
+    val sharedPref = context.getSharedPreferences(
+        "home_widget_prefs",
+        Context.MODE_PRIVATE
+    )
+    
+    val intent = Intent(context, MainActivity::class.java)
+    val pendingIntent = PendingIntent.getActivity(
+        context,
+        0,
+        intent,
+        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+    )
+    
     return RemoteViews(context.packageName, R.layout.home_widget).apply {
         val jsonString = widgetData.getString("text_from_flutter", null)
 
@@ -74,15 +86,33 @@ private fun createWordRemoteViews(context: Context): RemoteViews {
                 setTextViewText(R.id.text_use, word.use)
                 setTextViewText(R.id.text_description, word.description)
             } catch (e: Exception) {
-                setTextViewText(R.id.text_instead, "Veri yüklenemedi")
-                setTextViewText(R.id.text_use, "")
-                setTextViewText(R.id.text_description, "")
+                val use = sharedPref.getString("use", "") ?: ""
+                val instead = sharedPref.getString("instead", "") ?: ""
+                val description = sharedPref.getString("description", "") ?: ""
+
+                setTextViewText(R.id.text_instead, "$instead yerine kullan")
+                setTextViewText(R.id.text_use, use)
+                setTextViewText(R.id.text_description, description)
             }
         } else {
-            setTextViewText(R.id.text_instead, "Veri yok")
-            setTextViewText(R.id.text_use, "Uygulamayı açarak veriyi güncelle")
-            setTextViewText(R.id.text_description, "")
+            val use = sharedPref.getString("use", "") ?: ""
+            val instead = sharedPref.getString("instead", "") ?: ""
+            val description = sharedPref.getString("description", "") ?: ""
+
+            if (use.isNotEmpty()) {
+                setTextViewText(R.id.text_instead, "$instead yerine kullan")
+                setTextViewText(R.id.text_use, use)
+                setTextViewText(R.id.text_description, description)
+            } else {
+                setTextViewText(R.id.text_instead, "Veri yok")
+                setTextViewText(R.id.text_use, "Uygulamayı açarak veriyi güncelle")
+                setTextViewText(R.id.text_description, "")
+            }
         }
+        
+        setOnClickPendingIntent(R.id.text_instead, pendingIntent)
+        setOnClickPendingIntent(R.id.text_use, pendingIntent)
+        setOnClickPendingIntent(R.id.text_description, pendingIntent)
     }
 }
 
